@@ -59,7 +59,7 @@ struct ContentView: View {
             Text("\(num1) * \(num2) = ?")
             Spacer()
             
-            UITextField("", text: $answer)
+            TextField("", text: $answer)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .keyboardType(.numberPad)
 //                .padding(.leading, 80)
@@ -74,19 +74,7 @@ struct ContentView: View {
         .padding(.bottom, 50)
         
     }//body
-    extension UITextField {
 
-       func addDoneButtonOnKeyboard() {
-           let keyboardToolbar = UIToolbar()
-           keyboardToolbar.sizeToFit()
-           let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
-               target: nil, action: nil)
-           let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
-               target: self, action: #selector(resignFirstResponder))
-           keyboardToolbar.items = [flexibleSpace, doneButton]
-           self.inputAccessoryView = keyboardToolbar
-       }
-    }
     
 }
 
