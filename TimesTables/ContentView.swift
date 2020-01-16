@@ -9,36 +9,37 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var values1 = [1]//, 2, 3, 4, 5, 6]
+    @State var values2 = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+    
     var min1 = 1
     var min2 = 1
     var max1 = 6
     var max2 = 12
-    @State var num1 = Int.random(in: 1...6)
-    @State var num2 = Int.random(in: 1...12)
-    @State var answer = " "
+
+    @State var response = " "
     @State var feedback = " "
-    @State var next = false
-    @State var alertIsVisible: Bool = false
-    @State var nextdisabled = true
     @State var points = 0
+    @State var myproblems = [[Int]]()
+    @State var problem = [0,0,0]
+    @State var alldone = false
     let midnightblue = Color(red: 0.0/255.0, green: 51.0/255.0, blue: 102.0/255.0 )
     
-    
-
+   
     
     var body: some View {
+        
         VStack {
             
             
             Spacer()
             HStack{
-
-
+                
                 Spacer()
-
-                Text("\(num1) * \(num2) = ")
-                .font(.system(size: 40))
-                Text("\(answer)")
+                Text("\(problem[0]) x \(problem[1]) = ")
+                    .font(.system(size: 40))
+                Text("\(response)")
                     .padding(.trailing, 10)
                     .padding(.leading, 6)
                     .font(.system(size: 30))
@@ -46,199 +47,185 @@ struct ContentView: View {
                 Spacer()
                 Text("\(feedback)")
                     .padding(.trailing, 20)
-
+                
                 Spacer()
             }
-
-
+            
             Spacer()
             HStack{
                 //setting up number buttons
                 VStack{
+
                     Group{
                         HStack{
-                            Spacer()
-                            Button(action:{
-                                self.answer+="1"
-                            }){
-                                HStack{
-                                    Text("1")
-                                }
+                            Button(action:{self.response+="1"}){
+                                Text(" 1")
                             }
                             .background(Image("Button"))
+                            
+                            Button(action:{self.response+="2"}){
+                                Text(" 2")
+                            }
+                            .background(Image("Button"))
+                            .padding(.leading, 82)
+                            .padding(.trailing, 82)
+                            
+                            Button(action:{self.response+="3"}){
+                                Text(" 3")
+                            }
+                            .background(Image("Button"))
+                            
+                            Spacer()
+                        }//Hstack for top row of buttons (1-3)
+                        .padding(.leading, 80)
+                        .padding(.bottom, 20)
 
-                            Button(action:{
-                                self.answer+="2"
-                            }){
-                                HStack{
-                                    Text("2")
-                                }
-                            }
-                            .background(Image("Button"))
-                            .padding(.leading, 90)
-                            .padding(.trailing, 90)
-                            Button(action:{
-                                self.answer+="3"
-                            }){
-                                HStack{
-                                    Text("3")
-                                }
-                            }
-                            .background(Image("Button"))
-                            Spacer()
-                            }//Hstack for top row of buttons (1-3)
-                         .padding(20)
                         HStack{
-                            Spacer()
-                            Button(action:{
-                                self.answer+="4"
-                            }){
-                                HStack{
-                                    Text("4")
-                                }
+                            Button(action:{self.response+="4"}){
+                                Text(" 4")
                             }
                             .background(Image("Button"))
-                        
-                            Button(action:{
-                                self.answer+="5"
-                            }){
-                                HStack{
-                                    Text("5")
-                                }
+                            
+                            Button(action:{self.response+="5"}){
+                                Text(" 5")
                             }
                             .background(Image("Button"))
-                            .padding(.leading, 90)
-                            .padding(.trailing, 90)
-                          
-                            Button(action:{
-                                self.answer+="6"
-                            }){
-                                HStack{
-                                    Text("6")
-                                }
+                            .padding(.leading, 80)
+                            .padding(.trailing, 82)
+                            
+                            Button(action:{self.response+="6"}){
+                                Text(" 6")
                             }
                             .background(Image("Button"))
+                            
                             Spacer()
                         }//Hstack for second row of buttons (4-6)
-                         .padding(20)
+                        .padding(.leading, 80)
+                        .padding(.bottom, 20)
+                    }
+                    Group{
+                    
                         HStack{
-                            Spacer()
-                            Button(action:{
-                                self.answer+="7"
-                            }){
-                                HStack{
-                                    Text("7")
-                                }
+                            
+                            Button(action:{self.response+="7"}){
+                                Text(" 7")
                             }
                             .background(Image("Button"))
-                       
-                            Button(action:{
-                                self.answer+="8"
-                            }){
-                                HStack{
-                                    Text("8")
-                                }
+                            
+                            Button(action:{self.response+="8"}){
+                                Text(" 8")
                             }
                             .background(Image("Button"))
-                            .padding(.leading, 90)
-                            .padding(.trailing, 90)
-                         
-                            Button(action:{
-                                self.answer+="9"
-                            }){
-                                HStack{
-                                    Text("9")
-                                }
+                            .padding(.leading, 80)
+                            .padding(.trailing, 82)
+                            
+                            Button(action:{self.response+="9"}){
+                                Text(" 9")
                             }
                             .background(Image("Button"))
                             Spacer()
                         }//Hstack for third row of buttons (7-9)
-                        .padding(20)
+                        .padding(.leading, 80)
+                        .padding(.bottom, 20)
                         HStack{
-                            Spacer()
                             Button(action:{
-                                self.answer =  String((self.answer).dropLast(1))
+                                self.response =  String((self.response).dropLast(1))
                                 //self.answer = ans
                             }){
-                                HStack{
-                                    Text("⎌")
-                                    .font(.system(size: 40))
-                                }
+                                Text("Undo")
                             }
                             .background(Image("Button"))
-                        
+                            
                             Button(action:{
-                                self.answer+="0"
+                                self.response+="0"
                             }){
-                                HStack{
-                                    Text("0")
-                                }
+                                Text("    0   ")
                             }
                             .background(Image("Button"))
-                            .padding(.leading, 80)
-                            .padding(.trailing, 84)
-                            
-                            
+                            .padding(.leading, 55)
+                            .padding(.trailing, 57)
                             
                             Button(action:{
-                                  if Int(self.answer.trimmingCharacters(in: .whitespacesAndNewlines)) == self.num1 * self.num2 {
-               
-
+                                if Int(self.response.trimmingCharacters(in: .whitespacesAndNewlines)) == self.problem[2] {
+                                    
+                                    
                                     //self.round+=1
-                                    self.feedback = "Correct \(self.num1) + \(self.num2) = \(self.answer)!"
-                                    self.nextdisabled = false
+                                    self.feedback = "Correct \(self.problem[0]) x \(self.problem[1]) = \(self.problem[2])!"
+                                    
                                     self.points+=1
-                                  } else {
+                                    self.next_problem()
+                                                                        
+                                    self.response = " "
+                                    
+                                } else {
                                     self.feedback = "Try again"
-                                    self.answer = " "
-                                  }
-
+                                    if  !(self.myproblems.contains(self.problem)) {
+                                        self.myproblems.append(self.problem)
+                                    }
+                                    self.response = " "
+                                }
+                                
                             })//Button
                             {
                                 Text("Enter")
                             }//text for Button
-                            .background(Image("Button"))
-                        
+                                .background(Image("Button"))
+                            Spacer()
                             
-                            
-                        
-                        Spacer()
-
                         }//Hstack for final row of numpad
-                    }
+                        .padding(.leading, 65)
+                    }//group2
                 } //Vstack for numpad
+                
                 VStack{
-                    Spacer()
-                    Text("Total points: \(self.points)")
-                    Spacer()
+                    
                     Button(action:{
+                        self.create_problems()
+                        self.next_problem()
+                        print(self.myproblems)
                         
-                        self.next = true
-                        self.num1 = Int.random(in: self.min1...self.max1)
-                        self.num2 = Int.random(in: self.min2...self.max2)
-                        self.feedback = " "
-                        self.answer = ""
-//                        self.nextdisabled = true
                     }){
-                        HStack{
-                            Text("Next")
-                        }
-                            
-                    }//Next button
-                    .background(Image("Button"))
-                    .disabled(nextdisabled)
+                        Text("Start")
+                    }
+                    Text("Total points: \(self.points)")
+                    Text("Problems remaining: \(self.myproblems.count)")
                     Spacer()
+                    
+                  
                 }//Vstack for points/next button
                 Spacer()
+ 
             }//Hstack for number pad and points/next button
+            Spacer()
         }//Vstack
-        .accentColor(midnightblue)
-        .padding(.top, 20)
-        .padding(.bottom, 50)
+            .accentColor(midnightblue)
+            .padding(.top, 20)
+            .padding(.bottom, 50)
         
     }//body
-
     
+    func create_problems(){
+//        let svalues1 = values1.shuffled()
+//        let svalues2 = values2.shuffled()
+        for val1 in values1.shuffled() {
+            for val2 in values2.shuffled() {
+                self.myproblems.append([val1, val2, val1*val2])
+            
+            }
+        }
+    }
+    func next_problem(){
+        if myproblems.count>0{
+            problem=myproblems.removeFirst()
+        }
+        else {
+            print("All done!")
+            alldone=true
+        }
+    }
+//    func all_done(){
+//        return Alert(title:Text("All done.  Nice job!"))
+//    }
 }
 
 
