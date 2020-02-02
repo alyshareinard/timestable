@@ -40,7 +40,7 @@ struct ContentView: View {
                 Text("Which times tables would you like to practice?")
                 Spacer()
                 Button(action:{
-                    self.toggle_val()
+//TODO here is the problem!                    self.toggle_val()
                     print("toggling")
                 }){
                     Text("1").modifier(ButtonStyle())
