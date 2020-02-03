@@ -10,9 +10,14 @@
 
 import SwiftUI
 
+class Options {
+    @Published var vals = [5]
+    
+}
+
 struct ContentView: View {
 //    @State var vals: [Int]
-    @State var vals = [1, 2]
+    @ObservedObject var options=Options()
     @State var val = 1
     
     struct ButtonStyle: ViewModifier {
@@ -40,7 +45,7 @@ struct ContentView: View {
                 Text("Which times tables would you like to practice?")
                 Spacer()
                 Button(action:{
-//TODO here is the problem!                    self.toggle_val()
+                    self.toggle_val(1)
                     print("toggling")
                 }){
                     Text("1").modifier(ButtonStyle())
