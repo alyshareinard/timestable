@@ -10,29 +10,33 @@
 
 import SwiftUI
 
-class Options {
-    @Published var vals = [5]
+class Options: ObservableObject {
+    @Published var vals: [Int]
     
+    init(){
+        vals=[]
+        
+    }
 }
 
 struct ContentView: View {
-//    @State var vals: [Int]
+    //    @State var vals: [Int]
     @ObservedObject var options=Options()
     @State var val = 1
     
     struct ButtonStyle: ViewModifier {
         func body(content:Content) -> some View {
             return content
-//                .fontWeight(.bold)
+                //                .fontWeight(.bold)
                 .font(.title)
                 .padding()
                 .background(Color.purple)
-                .cornerRadius(40)
+                .cornerRadius(5)
                 .foregroundColor(.white)
-                .padding(10)
+                .padding(5)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 40)
-                        .stroke(Color.purple, lineWidth: 5)
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.purple, lineWidth: 1)
             )
         }
     }
@@ -42,36 +46,115 @@ struct ContentView: View {
         
         NavigationView {
             VStack{
+                Spacer()
                 Text("Which times tables would you like to practice?")
                 Spacer()
-                Button(action:{
-                    self.toggle_val(1)
-                    print("toggling")
-                }){
-                    Text("1").modifier(ButtonStyle())
+                HStack{
+                    
+                    Button(action:{
+                        self.toggle_val(1)
+                    }){
+                        Text("1").modifier(ButtonStyle())
+                    }
+                    
+                    Button(action:{
+                        self.toggle_val(2)
+                    }){
+                        Text("2").modifier(ButtonStyle())
+                    }
+                    
+                    Button(action:{
+                        self.toggle_val(3)
+                    }){
+                        Text("3").modifier(ButtonStyle())
+                    }
+                    
+                    Button(action:{
+                        self.toggle_val(4)
+                    }){
+                        Text("4").modifier(ButtonStyle())
+                    }
+                    
+                    Button(action:{
+                        self.toggle_val(5)
+                    }){
+                        Text("5").modifier(ButtonStyle())
+                    }
+                    
+                    Button(action:{
+                        self.toggle_val(6)
+                    }){
+                        Text("6").modifier(ButtonStyle())
+                    }
                 }
-                
+                Spacer()
+                HStack{
+                    
+                    Button(action:{
+                        self.toggle_val(7)
+                    }){
+                        Text("7").modifier(ButtonStyle())
+                    }
+                    
+                    Button(action:{
+                        self.toggle_val(8)
+                        print("toggling", self.options.vals)
+                    }){
+                        Text("8").modifier(ButtonStyle())
+                    }
+                    
+                    Button(action:{
+                        self.toggle_val(9)
+                        print("toggling", self.options.vals)
+                    }){
+                        Text("9").modifier(ButtonStyle())
+                    }
+                    
+                    Button(action:{
+                        self.toggle_val(10)
+                        print("toggling", self.options.vals)
+                    }){
+                        Text("10").modifier(ButtonStyle())
+                    }
+                    
+                    Button(action:{
+                        self.toggle_val(11)
+                        print("toggling", self.options.vals)
+                    }){
+                        Text("11").modifier(ButtonStyle())
+                    }
+                    Button(action:{
+                        self.toggle_val(12)
+                        print("toggling", self.options.vals)
+                    }){
+                        Text("12").modifier(ButtonStyle())
+                    }
+                    
+                    
+                    
+                }
                 Spacer()
                 
                 NavigationLink(destination: gameView()) {
                     Text("Play game")
                         .font(.headline)
                 }
+                Spacer()
             }
         }
         .navigationBarTitle("TimesTables")
     }
-
-    mutating func toggle_val(){
-
-        if let index = vals.firstIndex(of: val) {
-            self.vals.remove(at: index)
+    
+    func toggle_val(_ val:Int){
+        
+        if let index = self.options.vals.firstIndex(of: val) {
+            self.options.vals.remove(at: index)
         }
         else{
-            self.vals.append(val)
+            self.options.vals.append(val)
         }
     }
- 
+    
     
 }
 
