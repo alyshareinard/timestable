@@ -135,7 +135,7 @@ struct ContentView: View {
                 }
                 Spacer()
                 
-                NavigationLink(destination: gameView()) {
+                NavigationLink(destination: gameView(options: self.options)) {
                     Text("Play game")
                         .font(.headline)
                 }

@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct gameView: View {
-    @State var values1 = [1]//, 2, 3, 4, 5, 6]
+//    @State var values1 = [1]//, 2, 3, 4, 5, 6]
     @State var values2 = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-    
+    @ObservedObject var options: Options
     
     var min1 = 1
     var min2 = 1
@@ -231,7 +231,7 @@ struct gameView: View {
     func create_problems(){
         //        let svalues1 = values1.shuffled()
         //        let svalues2 = values2.shuffled()
-        for val1 in values1.shuffled() {
+        for val1 in self.options.vals.shuffled() {
             for val2 in values2.shuffled() {
                 self.myproblems.append([val1, val2, val1*val2])
                 
@@ -244,7 +244,7 @@ struct gameView: View {
         }
         else {
             print("All done!")
-            alldone=true
+            alldone=true    
         }
     }
     //    func all_done(){
@@ -255,6 +255,6 @@ struct gameView: View {
 
 struct gameView_Previews: PreviewProvider {
     static var previews: some View {
-        gameView()
+        gameView(options: Options())
     }
 }
