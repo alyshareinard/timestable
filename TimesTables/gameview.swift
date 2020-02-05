@@ -183,6 +183,15 @@ struct gameView: View {
                             {
                                 Text("Enter")
                             }//text for Button
+                                .alert(isPresented: $alldone){ () ->
+                                    Alert in
+                                    return Alert(title:Text("Good job!"),
+                                                 message:Text("Yur final score was \(self.points)"),
+                                                 dismissButton: .default(Text("Finish")){
+
+                                        }
+                                                    )
+                            }
                                 .background(Image("Button"))
                             Spacer()
                             
@@ -231,12 +240,15 @@ struct gameView: View {
     func create_problems(){
         //        let svalues1 = values1.shuffled()
         //        let svalues2 = values2.shuffled()
+        var allprobs = [[Int]]()
         for val1 in self.options.vals.shuffled() {
             for val2 in values2.shuffled() {
-                self.myproblems.append([val1, val2, val1*val2])
+                allprobs.append([val1, val2, val1*val2])
+//                self.myproblems.append([val1, val2, val1*val2])
                 
             }
         }
+        self.myproblems = allprobs.shuffled()
     }
     func next_problem(){
         if myproblems.count>0{
@@ -247,9 +259,7 @@ struct gameView: View {
             alldone=true    
         }
     }
-    //    func all_done(){
-    //        return Alert(title:Text("All done.  Nice job!"))
-    //    }
+
     
 }
 

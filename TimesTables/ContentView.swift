@@ -22,21 +22,25 @@ class Options: ObservableObject {
 struct ContentView: View {
     //    @State var vals: [Int]
     @ObservedObject var options=Options()
+    @State private var didTap=[false, false, false, false, false, false, false, false, false, false, false, false]
+    
     @State var val = 1
     
     struct ButtonStyle: ViewModifier {
         func body(content:Content) -> some View {
             return content
                 //                .fontWeight(.bold)
-                .font(.title)
-                .padding()
-                .background(Color.purple)
+                //                .font(.title)
+                //                .padding()
+                //                .background(didTap ? Color.blue : Color.red)
+                //                .background(Color.blue)
                 .cornerRadius(5)
                 .foregroundColor(.white)
                 .padding(5)
                 .overlay(
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(Color.purple, lineWidth: 1)
+                    
             )
         }
     }
@@ -46,88 +50,150 @@ struct ContentView: View {
         
         NavigationView {
             VStack{
-                Spacer()
+//                Spacer()
                 Text("Which times tables would you like to practice?")
                 Spacer()
                 HStack{
-                    
                     Button(action:{
                         self.toggle_val(1)
+                        self.didTap[0].toggle()
                     }){
-                        Text("1").modifier(ButtonStyle())
+                        Text("1")
+                            .font(.title)
+                            .padding()
+                            .background(didTap[0] ? Color.purple : Color.gray)
+                            .modifier(ButtonStyle())
                     }
                     
                     Button(action:{
                         self.toggle_val(2)
+                        self.didTap[1].toggle()
                     }){
-                        Text("2").modifier(ButtonStyle())
+                        Text("2")
+                            .font(.title)
+                            .padding()
+                            .background(didTap[1] ? Color.purple : Color.gray)
+                            .modifier(ButtonStyle())
                     }
                     
                     Button(action:{
                         self.toggle_val(3)
+                        self.didTap[2].toggle()
                     }){
-                        Text("3").modifier(ButtonStyle())
+                        Text("3")
+                            .font(.title)
+                            .padding()
+                            .background(didTap[2] ? Color.purple : Color.gray)
+                            .modifier(ButtonStyle())
                     }
                     
                     Button(action:{
                         self.toggle_val(4)
+                        self.didTap[3].toggle()
                     }){
-                        Text("4").modifier(ButtonStyle())
+                        Text("4")
+                            .font(.title)
+                            .padding()
+                            .background(didTap[3] ? Color.purple : Color.gray)
+                            .modifier(ButtonStyle())
                     }
                     
-                    Button(action:{
-                        self.toggle_val(5)
-                    }){
-                        Text("5").modifier(ButtonStyle())
-                    }
-                    
-                    Button(action:{
-                        self.toggle_val(6)
-                    }){
-                        Text("6").modifier(ButtonStyle())
-                    }
                 }
                 Spacer()
                 HStack{
                     
                     Button(action:{
-                        self.toggle_val(7)
+                        self.toggle_val(5)
+                        self.didTap[4].toggle()
                     }){
-                        Text("7").modifier(ButtonStyle())
+                        Text("5")
+                            .font(.title)
+                            .padding()
+                            .background(didTap[4] ? Color.purple : Color.gray)
+                            .modifier(ButtonStyle())
+                    }
+                    
+                    Button(action:{
+                        self.toggle_val(6)
+                        self.didTap[5].toggle()
+                    }){
+                        Text("6")
+                            .font(.title)
+                            .padding()
+                            .background(didTap[5] ? Color.purple : Color.gray)
+                            .modifier(ButtonStyle())
+                    }
+                    
+                    
+                    Button(action:{
+                        self.toggle_val(7)
+                        self.didTap[6].toggle()
+                    }){
+                        Text("7")
+                            .font(.title)
+                            .padding()
+                            .background(didTap[6] ? Color.purple : Color.gray)
+                            .modifier(ButtonStyle())
                     }
                     
                     Button(action:{
                         self.toggle_val(8)
-                        print("toggling", self.options.vals)
+                        self.didTap[7].toggle()
+                        
                     }){
-                        Text("8").modifier(ButtonStyle())
+                        Text("8")
+                            .font(.title)
+                            .padding()
+                            .background(didTap[7] ? Color.purple : Color.gray)
+                            .modifier(ButtonStyle())
                     }
-                    
+                }
+                Spacer()
+                HStack{
                     Button(action:{
                         self.toggle_val(9)
-                        print("toggling", self.options.vals)
+                        self.didTap[8].toggle()
+                        
                     }){
-                        Text("9").modifier(ButtonStyle())
+                        Text("9")
+                            .font(.title)
+                            .padding()
+                            .background(didTap[8] ? Color.purple : Color.gray)
+                            .modifier(ButtonStyle())
                     }
                     
                     Button(action:{
                         self.toggle_val(10)
-                        print("toggling", self.options.vals)
+                        self.didTap[9].toggle()
+                        
                     }){
-                        Text("10").modifier(ButtonStyle())
+                        Text("10")
+                            .font(.title)
+                            .padding()
+                            .background(didTap[9] ? Color.purple : Color.gray)
+                            .modifier(ButtonStyle())
                     }
                     
                     Button(action:{
                         self.toggle_val(11)
-                        print("toggling", self.options.vals)
+                        self.didTap[10].toggle()
+                        
                     }){
-                        Text("11").modifier(ButtonStyle())
+                        Text("11")
+                            .font(.title)
+                            .padding()
+                            .background(didTap[10] ? Color.purple : Color.gray)
+                            .modifier(ButtonStyle())
                     }
                     Button(action:{
                         self.toggle_val(12)
-                        print("toggling", self.options.vals)
+                        self.didTap[11].toggle()
                     }){
-                        Text("12").modifier(ButtonStyle())
+                        Text("12")
+                            .font(.title)
+                            .padding()
+                            .background(didTap[11] ? Color.purple : Color.gray)
+                            .modifier(ButtonStyle())
                     }
                     
                     
